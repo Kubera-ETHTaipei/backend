@@ -1,0 +1,18 @@
+{
+  "extends": "./node_modules/assemblyscript/std/assembly.json",
+
+  "include": ["./**/*.ts"],
+  "exclude": [],
+  // "ts-node": {
+  //   "files": true
+  // },
+  "compilerOptions": {
+    "target": "ES5",
+    "lib": ["es2018", "dom"],
+    "module": "CommonJS",
+    "noLib": false,
+    "strictBindCallApply": false,
+    "allowJs": true,
+    "outDir": "src"
+  }
+}
