@@ -1,0 +1,22 @@
+specVersion: 0.0.2
+apiVersion: 0.0.2
+name: eg_event
+description: "This demo CLE shows 3 ways to access / filter out source events."
+repository: https://github.com/ora-io/zkgraph
+dataSources:
+  - kind: ethereum
+    network: mainnet
+    event:
+      - address: "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9"
+        events:
+          - "Repay(address,address,address,uint256)"
+
+mapping:
+  language: wasm/assemblyscript
+  file: ./mapping.ts
+  handler: handleBlocks
+# Only enable for using zkAutomation
+# dataDestinations:
+#   - kind: ethereum
+#     network: sepolia
+#     address: "0x0000000000000000000000000000000000000001"
