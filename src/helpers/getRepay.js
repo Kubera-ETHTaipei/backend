@@ -1,29 +1,30 @@
-const getTokenPrice = require("./getTokenPrice.js");
+const getTokenPrice = require("./getTokenPrice.js")
+const { Exec } = require("./repay-exec.js")
 
 const getRepay = async (address, blockNum) => {
-  console.log("repay");
+  console.log("repay")
   try {
-    await RepayExec(blockNum).then((ret) => {
-      repayTemp = ret;
-    });
+    await Exec(blockNum).then((ret) => {
+      repayTemp = ret
+    })
   } catch (error) {
-    console.log(error);
-    return 0;
+    console.log(error)
+    return 0
   }
-  console.log("RPAYYYYYY");
-  let data = temp.substring(24);
+  console.log("RPAYYYYYY")
+  let data = temp.substring(24)
 
-  let reserve = "0x" + data.toString().substring(0, 40);
-  let data2 = data.substring(64);
-  let user = "0x" + data2.toString().substring(0, 40);
+  let reserve = "0x" + data.toString().substring(0, 40)
+  let data2 = data.substring(64)
+  let user = "0x" + data2.toString().substring(0, 40)
   if (user != address.toLowerCase()) {
-    return 0;
+    return 0
   }
-  let amount = data2.substring(64);
-  let parse_data = BigInt("0x" + amount);
-  console.log(parse_data);
-  let final_value = await getTokenPrice(reserve, parse_data);
-  return final_value;
-};
+  let amount = data2.substring(64)
+  let parse_data = BigInt("0x" + amount)
+  console.log(parse_data)
+  let final_value = await getTokenPrice(reserve, parse_data)
+  return final_value
+}
 
-module.exports = getRepay;
+module.exports = getRepay
