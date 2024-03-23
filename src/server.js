@@ -34,7 +34,7 @@ app.post("/insert", async (req, res) => {
   //19445162
   //19445193
   try {
-    for (let i = blockNum; i <= 19474082; i++) {
+    for (let i = 19474082; i <= blockNum; i++) {
       console.log("running block", i)
       try {
         await Exec(i).then((ret) => {
@@ -59,7 +59,7 @@ app.post("/insert", async (req, res) => {
     console.log("Process completed successfully")
     if (borrowed > 0) {
       console.log("Borrowed:", borrowed)
-      await insertIntoTableTransaction(address, borrowed)
+      await insertIntoTableTransaction(address, borrowed, blockNum)
     }
   } catch (error) {
     console.log("the error:", error)
@@ -71,14 +71,16 @@ app.post("/insert", async (req, res) => {
 app.post("/update", async (req, res) => {
   console.log(req.query, typeof req.query.blockNum)
   const blockNum = parseInt(req.query.blockNum)
+  const lastBlock = parseInt(req.query.lastBlock)
   const address = req.query.address
   console.log(blockNum, typeof blockNum)
   let borrowed = 0
   let temp = null
   //19445162
   //19445193
+
   try {
-    for (let i = blockNum; i <= 19474082; i++) {
+    for (let i = lastBlock; i <= blockNum; i++) {
       console.log("running block", i)
       try {
         await Exec(i).then((ret) => {
@@ -107,7 +109,7 @@ app.post("/update", async (req, res) => {
     console.log("Process completed successfully")
     if (borrowed > 0) {
       console.log("Borrowed:", borrowed)
-      await updateTableTransaction(address, borrowed)
+      await updateTableTransaction(address, borrowed, blockNum)
     }
   } catch (error) {
     console.log("the error:", error)

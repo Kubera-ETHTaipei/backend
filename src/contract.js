@@ -1,5 +1,6 @@
+const { timeStamp } = require("console")
 const { ethers } = require("ethers")
-const contractAddress = ""
+const contractAddress = "0x6B394c412568cd628964709bbdBfe5FFa3d6Ba23"
 const abi = [
   {
     inputs: [
@@ -41,12 +42,124 @@ const abi = [
     inputs: [
       {
         internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "getPolicy",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "bool",
+            name: "allowInsert",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "allowUpdate",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "allowDelete",
+            type: "bool",
+          },
+          {
+            internalType: "string",
+            name: "whereClause",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "withCheck",
+            type: "string",
+          },
+          {
+            internalType: "string[]",
+            name: "updatableColumns",
+            type: "string[]",
+          },
+        ],
+        internalType: "struct TablelandPolicy",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "getPolicy",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "bool",
+            name: "allowInsert",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "allowUpdate",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "allowDelete",
+            type: "bool",
+          },
+          {
+            internalType: "string",
+            name: "whereClause",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "withCheck",
+            type: "string",
+          },
+          {
+            internalType: "string[]",
+            name: "updatableColumns",
+            type: "string[]",
+          },
+        ],
+        internalType: "struct TablelandPolicy",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "user",
         type: "address",
       },
       {
         internalType: "uint256",
         name: "credit",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "timestamp",
         type: "uint256",
       },
     ],
@@ -117,6 +230,11 @@ const abi = [
         name: "credit",
         type: "uint256",
       },
+      {
+        internalType: "uint256",
+        name: "timestamp",
+        type: "uint256",
+      },
     ],
     name: "updateTable",
     outputs: [],
@@ -163,6 +281,25 @@ const abi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_protocol",
+        type: "address",
+      },
+    ],
+    name: "getTrustedProtocol",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "owner",
     outputs: [
@@ -201,15 +338,19 @@ const contract = new ethers.Contract(contractAddress, abi, provider)
 const wallet = new ethers.Wallet("0x" + process.env.PRIVATE_KEY, provider)
 console.log("wallet address:", wallet.address)
 
-async function insertIntoTableTransaction(address, credit) {
+async function insertIntoTableTransaction(address, credit, timeStamp) {
   console.log("HI I am in INssert INto ")
   console.log(address, credit)
   const contractWithSigner = contract.connect(wallet)
-  const tx = await contractWithSigner.insertIntoTable(address, credit)
+  const tx = await contractWithSigner.insertIntoTable(
+    address,
+    credit,
+    timeStamp
+  )
   const receipt = await tx.wait()
   console.log(receipt)
 }
-async function updateTableTransaction(address, credit) {
+async function updateTableTransaction(address, credit, timeStamp) {
   const contractWithSigner = contract.connect(wallet)
   const tx = await contractWithSigner.updateTable(address, credit)
   const receipt = await tx.wait()
