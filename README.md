@@ -18,3 +18,7 @@ The purpose of hardcoding the initial block is for easier demo purpose. Theoreti
 Once the score, is updated it will send the data to the frontend which will create a transaction and store the value as well as the last block  in Tableland tables through the contract. <br />
 If the user already exists in our contract, then we fetch the score and the last block indexed till and run the indexer till the current block. Hence, we do not need to re-run any previously indexed blocks for a specific user. Once completed, it will send the updated value and block to the frontend.
 
+## Deployment
+
+The backend codebase is deployed on OpSec revolutionary Node infrastructure.
+Complete walkthrough of the codebase is available [here](https://happys1ngh.hashnode.dev/leveraging-opsecs-vps-to-deploy-a-node-server-up-and-running)
